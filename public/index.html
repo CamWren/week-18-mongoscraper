@@ -16,6 +16,7 @@
         overflow: auto;
         width: 60%;
         height: 700px;
+        margin-top: 32px;
       }
       #notes {
         float: right;
@@ -34,12 +35,16 @@
         height: 200px;
         font-size: 18px;
       }
+      #scrape {
+          position: absolute;
+      }
     </style>
   </head>
   <body>
     <div id="wrapper">
-      <h1>Note Scraper</h1>
-      <h2><i>If you can do this...the homework should be no problem.</i></h2>
+      <h1>Diced Onion</h1>
+      <h2><i>Getcha satire here!</i></h2>
+      <button id="scrape" type="button" method="GET">Scrape Articles</button>
       <div id="articles"></div>
       <div id="notes"></div>
     </div>

@@ -1,20 +1,20 @@
-// Grab the articles as a json
-$.getJSON("/articles", function(data) {
-  // For each one
-  for (var i = 0; i < data.length; i++) {
-      var thisLink = "http://www.theonion.com" + data[i].link;
-    // Display the apropos information on the page
-    $("#articles").append("<p class=" + data[i]._id + " " + "data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "<br />" + "<button><a href='" + thisLink + "'target='_blank'" + "style='color: #000000; text-decoration: none;'" + "</a>Read Article</button>" +"<button data-id='" + data[i]._id + "' id='savearticle'>Save Article</button>" + "<button data-id='" + data[i]._id + "' id='deletearticle'>Delete Article</button>" + "<button data-id='" + data[i]._id + "' id='notesbutton'>Takes Notes</button>" + "</p>");
-  }
+$(document).on("click", "#scrape", function() {
+    $.ajax({
+    method: "GET",
+    url: "/scrape"
+  })
+  .done(function(data) {
+      $.getJSON("/articles", function(data) {
+    // For each one
+    for (var i = 0; i < data.length; i++) {
+        var thisLink = "http://www.theonion.com" + data[i].link;
+        // Display the apropos information on the page
+        $("#articles").append("<p class=" + data[i]._id + " " + "data-id='" + data[i]._id + "'>" + data[i].title + "-- " + "<a href='" + thisLink + "'target='_blank'" + "<button>Read Article</button></a>" +  "<br />" + data[i].link + "<br />" + "<button data-id='" + data[i]._id + "' id='savearticle'>Save</button>" + "<button data-id='" + data[i]._id + "' id='deletearticle'>Delete</button>" + "<button data-id='" + data[i]._id + "' id='notesbutton'>Notes</button>" + "</p>");
+        }
+    });
+  });
 });
 
-
-// // Whenever someone clicks a p tag
-// $(document).on("click", "#readarticle", function() {
-//   // Save the id from the p tag
-//   var thisId = $(this).attr("data-id");
-
-// });
 
 // Whenever someone clicks a p tag
 $(document).on("click", "#notesbutton", function() {
@@ -53,34 +53,22 @@ $(document).on("click", "#notesbutton", function() {
 });
 
 
-// // When you click the savenote button
-// $(document).on("click", "#savearticle", function() {
-//   // Grab the id associated with the article from the submit button
-//   var thisId = $(this).attr("data-id");
+// When you click the savenote button
+$(document).on("click", "#savearticle", function() {
+  // Grab the id associated with the article from the submit button
+  var thisId = $(this).attr("data-id");
 
-//   // Run a POST request to change the note, using what's entered in the inputs
-//   $.ajax({
-//     method: "POST",
-//     url: "/articles/" + thisId,
-//     data: {
-//       // Value taken from title input
-//       title: $("#titleinput").val(),
-//       // Value taken from note textarea
-//       body: $("#bodyinput").val()
-//     }
-//   })
-//     // With that done
-//     .done(function(data) {
-//       // Log the response
-//       console.log(data);
-//       // Empty the notes section
-//       $("#notes").empty();
-//     });
-
-//   // Also, remove the values entered in the input and textarea for note entry
-//   $("#titleinput").val("");
-//   $("#bodyinput").val("");
-// });
+  // Run a POST request to change the note, using what's entered in the inputs
+  $.ajax({
+    method: "POST",
+    url: "/articles/" + thisId
+  })
+    // With that done
+    .done(function(data) {
+      // Log the response
+      console.log("save successful");
+    });
+});
 
 
 // When you click the savenote button
