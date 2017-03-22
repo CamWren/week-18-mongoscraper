@@ -2,22 +2,19 @@
 $.getJSON("/articles", function(data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
+      var thisLink = "http://www.theonion.com" + data[i].link;
     // Display the apropos information on the page
-    $("#articles").append("<p class=" + data[i]._id + " " + "data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "<br />" +  "<button data-id='" + data[i]._id + "' id='readarticle'>Read Article</button>" + "<button data-id='" + data[i]._id + "' id='savearticle'>Save Article</button>" + "<button data-id='" + data[i]._id + "' id='deletearticle'>Delete Article</button>" + "<button data-id='" + data[i]._id + "' id='notesbutton'>Takes Notes</button>" + "</p>");
+    $("#articles").append("<p class=" + data[i]._id + " " + "data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "<br />" + "<button><a href='" + thisLink + "'target='_blank'" + "style='color: #000000; text-decoration: none;'" + "</a>Read Article</button>" +"<button data-id='" + data[i]._id + "' id='savearticle'>Save Article</button>" + "<button data-id='" + data[i]._id + "' id='deletearticle'>Delete Article</button>" + "<button data-id='" + data[i]._id + "' id='notesbutton'>Takes Notes</button>" + "</p>");
   }
 });
 
 
-// Whenever someone clicks a p tag
-$(document).on("click", "#readarticle", function() {
-  // Save the id from the p tag
-  var thisId = $(this).attr("data-id");
+// // Whenever someone clicks a p tag
+// $(document).on("click", "#readarticle", function() {
+//   // Save the id from the p tag
+//   var thisId = $(this).attr("data-id");
 
-  var onion = "http://www.theonion.com/section/local/";
-
-  
-
-});
+// });
 
 // Whenever someone clicks a p tag
 $(document).on("click", "#notesbutton", function() {
